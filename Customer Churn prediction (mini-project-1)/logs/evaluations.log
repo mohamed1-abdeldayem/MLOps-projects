@@ -1,0 +1,6 @@
+2026-09-02 21:52:30,753 - evaluation - INFO - ===== Model Evaluation =====
+2026-09-02 21:52:30,754 - evaluation - INFO - Accuracy : 0.8003
+2026-09-02 21:52:30,754 - evaluation - INFO - Precision: 0.6388
+2026-09-02 21:52:30,754 - evaluation - INFO - Recall   : 0.5722
+2026-09-02 21:52:30,754 - evaluation - INFO - F1 Score : 0.6037
+2026-09-02 21:52:30,754 - evaluation - INFO - ============================

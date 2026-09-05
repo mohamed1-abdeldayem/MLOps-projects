@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="uv (mlops-churn-api)" />
+  </component>
+  <component name="KubernetesApiProvider">{}</component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="uv (mlops-churn-api)" project-jdk-type="Python SDK" />
+</project>

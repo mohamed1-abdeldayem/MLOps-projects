@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Churn Prediction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="app-header__inner">
+      <div class="app-header__titles">
+        <h1 class="app-header__title">Customer Churn Prediction</h1>
+        <p class="app-header__subtitle">Predict the likelihood of customer churn using machine learning.</p>
+      </div>
+      <div class="status" id="statusIndicator" role="status" aria-live="polite">
+        <span class="status__dot" id="statusDot" aria-hidden="true"></span>
+        <span class="status__text" id="statusText">Checking API…</span>
+        <button type="button" class="status__refresh" id="refreshStatusBtn" aria-label="Refresh API status">
+          Refresh
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <!-- ============ FORM COLUMN ============ -->
+    <section class="form-column" aria-labelledby="formHeading">
+      <h2 id="formHeading" class="visually-hidden">Customer Information Form</h2>
+
+      <form id="churnForm" novalidate>
+
+        <!-- Personal Information -->
+        <fieldset class="card">
+          <legend class="card__legend">Personal Information</legend>
+          <div class="field-grid">
+
+            <div class="field">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" required>
+                <option value="" disabled selected>Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="SeniorCitizen">Senior Citizen</label>
+              <select id="SeniorCitizen" name="SeniorCitizen" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="partner">Partner</label>
+              <select id="partner" name="partner" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="Dependents">Dependents</label>
+              <select id="Dependents" name="Dependents" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Account Information -->
+        <fieldset class="card">
+          <legend class="card__legend">Account Information</legend>
+          <div class="field-grid">
+
+            <div class="field">
+              <label for="tenure">Tenure (months)</label>
+              <input type="number" id="tenure" name="tenure" min="0" max="100" step="1" placeholder="e.g. 12" required />
+            </div>
+
+            <div class="field">
+              <label for="Contract">Contract</label>
+              <select id="Contract" name="Contract" required>
+                <option value="" disabled selected>Select contract</option>
+                <option value="Month-to-month">Month-to-month</option>
+                <option value="One year">One year</option>
+                <option value="Two year">Two year</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="PaperlessBilling">Paperless Billing</label>
+              <select id="PaperlessBilling" name="PaperlessBilling" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="PaymentMethod">Payment Method</label>
+              <select id="PaymentMethod" name="PaymentMethod" required>
+                <option value="" disabled selected>Select payment method</option>
+                <option value="Electronic check">Electronic check</option>
+                <option value="Mailed check">Mailed check</option>
+                <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                <option value="Credit card (automatic)">Credit card (automatic)</option>
+              </select>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Services -->
+        <fieldset class="card">
+          <legend class="card__legend">Services</legend>
+          <div class="field-grid">
+
+            <div class="field">
+              <label for="MultipleLines">Multiple Lines</label>
+              <select id="MultipleLines" name="MultipleLines" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="No phone service">No phone service</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="InternetService">Internet Service</label>
+              <select id="InternetService" name="InternetService" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="DSL">DSL</option>
+                <option value="Fiber optic">Fiber optic</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="OnlineSecurity">Online Security</label>
+              <select id="OnlineSecurity" name="OnlineSecurity" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="No internet service">No internet service</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="OnlineBackup">Online Backup</label>
+              <select id="OnlineBackup" name="OnlineBackup" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="No internet service">No internet service</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="DeviceProtection">Device Protection</label>
+              <select id="DeviceProtection" name="DeviceProtection" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="No internet service">No internet service</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="TechSupport">Tech Support</label>
+              <select id="TechSupport" name="TechSupport" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="No internet service">No internet service</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="StreamingTV">Streaming TV</label>
+              <select id="StreamingTV" name="StreamingTV" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="No internet service">No internet service</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="StreamingMovies">Streaming Movies</label>
+              <select id="StreamingMovies" name="StreamingMovies" required>
+                <option value="" disabled selected>Select option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="No internet service">No internet service</option>
+              </select>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Billing Information -->
+        <fieldset class="card">
+          <legend class="card__legend">Billing Information</legend>
+          <div class="field-grid">
+
+            <div class="field">
+              <label for="MonthlyCharges">Monthly Charges ($)</label>
+              <input type="number" id="MonthlyCharges" name="MonthlyCharges" min="0" step="0.01" placeholder="e.g. 70.35" required />
+            </div>
+
+            <div class="field">
+              <label for="TotalCharges">Total Charges ($)</label>
+              <input type="number" id="TotalCharges" name="TotalCharges" min="0" step="0.01" placeholder="e.g. 845.20" required />
+            </div>
+
+          </div>
+        </fieldset>
+
+      </form>
+    </section>
+
+    <!-- ============ PREDICTION PANEL ============ -->
+    <aside class="predict-column" aria-labelledby="predictHeading">
+      <div class="predict-panel">
+        <h2 id="predictHeading" class="predict-panel__title">Run Prediction</h2>
+        <p class="predict-panel__hint">Fill in the customer details, then generate a churn prediction.</p>
+
+        <div class="predict-panel__actions">
+          <button type="submit" form="churnForm" class="btn btn--primary" id="predictBtn">
+            <span class="btn__label">Predict Churn</span>
+            <span class="btn__spinner" id="btnSpinner" hidden aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn btn--ghost" id="resetBtn">Reset Form</button>
+        </div>
+
+        <div class="alert alert--error" id="errorBox" hidden role="alert"></div>
+
+        <!-- Result Card -->
+        <div class="result-card" id="resultCard" hidden aria-live="polite">
+          <div class="result-card__header">
+            <span class="result-card__label">Prediction</span>
+            <span class="result-badge" id="resultBadge">—</span>
+          </div>
+
+          <div class="result-card__probability">
+            <div class="probability-row">
+              <span class="probability-row__label">Churn Probability</span>
+              <span class="probability-row__value" id="probabilityValue">0%</span>
+            </div>
+            <div class="probability-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="probabilityBar">
+              <div class="probability-bar__fill" id="probabilityFill"></div>
+            </div>
+          </div>
+
+          <p class="result-card__note" id="resultNote"></p>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Connected to FastAPI backend at <code>http://localhost:8000</code></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
