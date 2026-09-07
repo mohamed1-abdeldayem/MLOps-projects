@@ -198,7 +198,7 @@ Python 3.12+   git   uv   docker   docker-compose
 ### 1. Clone & install
 
 ```bash
-git clone -b feature/Docker https://github.com/mohamed1-abdeldayem/Customer-Churn-Prediction-mini-project-1-.git
+git clone -b mlops/mini-project-1 https://github.com/mohamed1-abdeldayem/MLOps-projects.git
 cd Customer-Churn-Prediction-mini-project-1-
 uv sync
 ```
