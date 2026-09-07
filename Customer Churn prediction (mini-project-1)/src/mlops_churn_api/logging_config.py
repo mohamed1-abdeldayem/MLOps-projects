@@ -21,11 +21,7 @@ def create_logger(name: str, filename: str, filemode: str = "a") -> logging.Logg
     Returns:
         A configured logging.Logger instance.
     """
-    handler = logging.FileHandler(
-        LOG_DIR / filename,
-        encoding="utf-8",
-        mode=filemode
-    )
+    handler = logging.FileHandler(LOG_DIR / filename, encoding="utf-8", mode=filemode)
     handler.setLevel(logging.INFO)
     handler.setFormatter(FORMATTER)
     logger = logging.getLogger(name)
@@ -36,9 +32,4 @@ def create_logger(name: str, filename: str, filemode: str = "a") -> logging.Logg
     return logger
 
 
-evaluation_logger = create_logger(
-    "evaluation",
-    "evaluations.log",
-    "w"
-)
-
+evaluation_logger = create_logger("evaluation", "evaluations.log", "w")

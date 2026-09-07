@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Request
+from fastapi import FastAPI, Request
 from .schemas import ChurnInput
 from .inference import Inference
 from contextlib import asynccontextmanager
@@ -16,7 +16,7 @@ app = FastAPI(
     title="Churn API",
     description="API for predicting customer churn",
     version="0.0.1",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -30,12 +30,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.post(
     "/predict",
     summary="Predict customer churn",
-    description="Predict whether a customer is likely to churn based on their information."
+    description="Predict whether a customer is likely to churn based on their information.",
 )
-def predict(data: ChurnInput,request:Request ) -> dict[str, int | float]:
+def predict(data: ChurnInput, request: Request) -> dict[str, int | float]:
     """Predict whether a customer is likely to churn.
 
     Args:
@@ -47,8 +48,9 @@ def predict(data: ChurnInput,request:Request ) -> dict[str, int | float]:
     """
     return request.app.state.model.predict(data)
 
+
 @app.get("/health")
-def health_check(request:Request):
+def health_check(request: Request):
     """Check the health of the API and model availability.
 
     Args:
@@ -57,10 +59,8 @@ def health_check(request:Request):
     Returns:
         A dictionary containing the API status and model loading status.
     """
-    return {
-        "status": "healthy",
-        "model_loaded": request.app.state.model is not None
-    }
+    return {"status": "healthy", "model_loaded": request.app.state.model is not None}
+
 
 @app.get("/")
 def root():
@@ -69,7 +69,4 @@ def root():
     Returns:
         A dictionary containing the API status message.
     """
-    return {
-        "message": "Churn API is running"
-    }
-
+    return {"message": "Churn API is running"}

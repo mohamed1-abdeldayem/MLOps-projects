@@ -1,2 +1,2 @@
-from .training import ModelTrainer
-from .export_onnx import ExportToOnnx
+from .training import ModelTrainer as ModelTrainer
+from .export_onnx import ExportToOnnx as ExportToOnnx
