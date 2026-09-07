@@ -13,7 +13,6 @@ dependencies = [
     "ipykernel>=7.3.0",
     "joblib>=1.6.0",
     "matplotlib>=3.11.1",
-    "numby>=0.2.0",
     "numpy>=2.5.2",
     "onnx>=1.22.0",
     "onnxruntime>=1.29.0",

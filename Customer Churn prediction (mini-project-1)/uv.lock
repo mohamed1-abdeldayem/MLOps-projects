@@ -773,7 +773,6 @@ dependencies = [
     { name = "ipykernel" },
     { name = "joblib" },
     { name = "matplotlib" },
-    { name = "numby" },
     { name = "numpy" },
     { name = "onnx" },
     { name = "onnxruntime" },
@@ -797,7 +796,6 @@ requires-dist = [
     { name = "ipykernel", specifier = ">=7.3.0" },
     { name = "joblib", specifier = ">=1.6.0" },
     { name = "matplotlib", specifier = ">=3.11.1" },
-    { name = "numby", specifier = ">=0.2.0" },
     { name = "numpy", specifier = ">=2.5.2" },
     { name = "onnx", specifier = ">=1.22.0" },
     { name = "onnxruntime", specifier = ">=1.29.0" },
@@ -830,15 +828,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/b4/73/731debf26e27e0a0323d7bda270dc2f634b398e38f040a09da1f4351d0aa/nest_asyncio2-1.7.2.tar.gz", hash = "sha256:1921d70b92cc4612c374928d081552efb59b83d91b2b789d935c665fa01729a8", size = 14743, upload-time = "2026-02-13T00:34:04.386Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c5/3c/3179b85b0e1c3659f0369940200cd6d0fa900e6cefcc7ea0bc6dd0e29ffb/nest_asyncio2-1.7.2-py3-none-any.whl", hash = "sha256:f5dfa702f3f81f6a03857e9a19e2ba578c0946a4ad417b4c50a24d7ba641fe01", size = 7843, upload-time = "2026-02-13T00:34:02.691Z" },
-]
-
-[[package]]
-name = "numby"
-version = "0.2.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d3/9a/3e5d29424be8fbba273253d6ff4be8374fc288c3bc8da45a85c9c08c2a48/numby-0.2.0.tar.gz", hash = "sha256:492464adbe6ec51b8c1ccd24a18abd50711a62c2bf12069dda9fefa0cf9582fb", size = 927, upload-time = "2025-06-13T13:02:07.669Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/dc/d1/11704174b958e48328ec9c8c8093a51978a4d4465b8fbe2964af6a8a1ccd/numby-0.2.0-py3-none-any.whl", hash = "sha256:88592869edce5b64c8d5e46a6a5d1e8781889558cd526304fa8e31c59fe2daca", size = 1100, upload-time = "2025-06-13T13:02:06.855Z" },
 ]
 
 [[package]]
