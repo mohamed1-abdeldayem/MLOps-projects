@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
-from mlops_churn_api import app
 import pytest
+from src.mlops_churn_api import app
+
 
 @pytest.fixture
 def client():
@@ -14,9 +15,7 @@ def test_root(client):
     response = client.get("/")
 
     assert response.status_code == 200
-    assert response.json() == {
-        "message": "Churn API is running"
-    }
+    assert response.json() == {"message": "Churn API is running"}
 
 
 def test_health(client):
@@ -29,6 +28,7 @@ def test_health(client):
 
     assert data["status"] == "healthy"
     assert data["model_loaded"] is True
+
 
 def test_predict(client):
     """Test that the prediction endpoint returns a valid churn prediction."""
@@ -50,7 +50,7 @@ def test_predict(client):
         "PaperlessBilling": "Yes",
         "PaymentMethod": "Mailed check",
         "MonthlyCharges": 70.5,
-        "TotalCharges": 846.0
+        "TotalCharges": 846.0,
     }
 
     response = client.post("/predict", json=data)

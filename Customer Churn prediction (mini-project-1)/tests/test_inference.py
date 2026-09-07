@@ -1,12 +1,13 @@
 import pytest
 
-from mlops_churn_api import Inference
-from mlops_churn_api.schemas import ChurnInput
+from src.mlops_churn_api import Inference
+from src.mlops_churn_api.schemas import ChurnInput
+
 
 @pytest.fixture
 def data():
     """Create valid customer data for inference tests."""
-    return  ChurnInput(
+    return ChurnInput(
         gender="Male",
         SeniorCitizen=0,
         partner="Yes",
@@ -24,15 +25,17 @@ def data():
         PaperlessBilling="Yes",
         PaymentMethod="Mailed check",
         MonthlyCharges=70.5,
-        TotalCharges=846.0
+        TotalCharges=846.0,
     )
+
 
 @pytest.fixture
 def model():
     """Create an Inference instance for testing."""
     return Inference()
 
-def test_preprocess_input(data,model):
+
+def test_preprocess_input(data, model):
     """Test that input preprocessing produces the expected model features."""
     inference = model
     df = inference.preprocess_input(data)
@@ -43,13 +46,13 @@ def test_preprocess_input(data,model):
 
     assert list(df.columns) == inference.feature_names
 
+
 def test_predict(data, model):
     """Test that the inference model returns a valid prediction and probability."""
     result = model.predict(data)
 
-    label = result[0]
-    probabilities = result[1]
+    label = result["prediction"]
+    probabilities = result["probability"]
 
-    assert label[0] in [0, 1]
-    assert len(probabilities) == 1
-    assert sum(probabilities[0].values()) == pytest.approx(1.0)
+    assert label in [0, 1]
+    assert 0 <= probabilities <= 1

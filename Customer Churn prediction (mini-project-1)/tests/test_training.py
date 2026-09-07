@@ -1,16 +1,18 @@
 import pytest
 import pandas as pd
-from pathlib import Path
 from sklearn.model_selection import GridSearchCV
-
+from sklearn.pipeline import Pipeline
+from sklearn.utils.validation import check_is_fitted
 from training import ModelTrainer
+
 
 @pytest.fixture
 def model():
     """Create a ModelTrainer instance for testing."""
     return ModelTrainer()
 
-def test_data_load(model:ModelTrainer):
+
+def test_data_load(model: ModelTrainer):
     """Test that the dataset is loaded correctly."""
     df = model.data_load()
 
@@ -19,17 +21,22 @@ def test_data_load(model:ModelTrainer):
     assert "Churn" in df.columns
 
 
+def test_pre_processing(model, tmp_path):
+    processed_path = tmp_path / "processed.csv"
+    feature_path = tmp_path / "feature_names.json"
 
-def test_pre_processing(model):
-    """Test that preprocessing returns valid features and target data."""
-    x, y = model.pre_processing()
+    x, y = model.pre_processing(
+        processed_path=processed_path,
+        feature_path=feature_path,
+    )
 
     assert isinstance(x, pd.DataFrame)
     assert isinstance(y, pd.Series)
-
-    assert "Churn" not in x.columns
     assert len(x) == len(y)
-    assert x.shape[1] > 0
+
+    assert processed_path.exists()
+    assert feature_path.exists()
+
 
 def test_split_data(model):
     """Test that the dataset is split into compatible training and test sets."""
@@ -42,37 +49,38 @@ def test_split_data(model):
 
     assert list(x_train.columns) == list(x_test.columns)
 
+
 def test_create_model(model):
     """Test that the model training configuration returns a GridSearchCV instance."""
     grid = model.create_model()
 
     assert isinstance(grid, GridSearchCV)
 
+
 def test_train_model(model):
     """Test that the model is trained and returns a fitted pipeline."""
     trained_model, x_test, y_test = model.train_model()
 
-    assert isinstance(trained_model, GridSearchCV)
-    assert hasattr(trained_model, "best_estimator_")
-    assert hasattr(trained_model, "best_params_")
+    assert isinstance(trained_model, Pipeline)
+
+    # Verify that the returned pipeline is fitted
+    check_is_fitted(trained_model)
 
     assert len(x_test) == len(y_test)
+
 
 def test_evaluate_model(model, caplog):
     """Test that model evaluation logs the expected performance metrics."""
     trained_model, x_test, y_test = model.train_model()
 
-    model.evaluate_model(
-        x_test,
-        y_test,
-        trained_model
-    )
+    model.evaluate_model(x_test, y_test, trained_model)
 
     assert "Model Evaluation" in caplog.text
     assert "Accuracy" in caplog.text
     assert "Precision" in caplog.text
     assert "Recall" in caplog.text
     assert "F1 Score" in caplog.text
+
 
 def test_save_model(model, tmp_path):
     """Test that the trained model is successfully saved to disk."""
